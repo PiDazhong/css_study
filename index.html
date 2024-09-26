@@ -61,6 +61,20 @@
     </div>
   </body>
   <script>
+    // 全局对象，用于调试信息输出
+    Object.defineProperty(window, 'DEBUG_INFO', {
+      get: function () {
+        const projectStr = `/    css_study 相关信息:                                /`;
+        const githubStr = `/    项目地址：https://github.com/PiDazhong/css_study   /`;
+        const chatroomStr = `/    部署地址：https://css-study.quantanalysis.cn       /`;
+        const authorStr = `/    作者vx: pdz_wechat                                /`;
+        const lineStr = `- - - - - - - - - - - - - - - - - - - - - - - - - - - -`;
+        return `${lineStr}\n${projectStr}\n\n${githubStr}\n\n${chatroomStr}\n\n${authorStr}\n\n${lineStr}\n`;
+      },
+    });
+    console.log(window['DEBUG_INFO']);
+  </script>
+  <script>
     // 使用AJAX获取文件列表并生成链接
     function loadLinks() {
       fetch('/get-directories')
