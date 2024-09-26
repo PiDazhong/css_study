@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>抽奖轮盘</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="pointer"></div>
+      <div id="wheel" class="wheel">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <button class="button" id="button">抽奖</button>
+    </div>
+  </body>
+  <script>
+    const wheel = document.getElementById("wheel");
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", () => {
+      const oldDeg = wheel.style.transform
+        .replace("rotate(", "")
+        .replace("deg)", "");
+      const newDeg = Number(oldDeg) + Math.random() * 360 * 2 + 360 * 3;
+      wheel.style.transform = `rotate(${newDeg}deg)`;
+    });
+  </script>
+</html>

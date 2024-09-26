@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>demo</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="process">
+        <div class="process-bar"></div>
+        <div class="process-thumb"></div>
+        <div class="process-text">0</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function throttle(fn, delay) {
+      let canRun = true;
+
+      return function (...args) {
+        if (!canRun) {
+          return;
+        }
+        canRun = false;
+        setTimeout(() => {
+          fn.call(this, ...args);
+          canRun = true;
+        });
+      };
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const processBar = document.querySelector(".process-bar");
+      const thumb = document.querySelector(".process-thumb");
+      const processText = document.querySelector(".process-text");
+
+      const processBarRect = processBar.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+
+      console.log("processBarRect", processBarRect);
+      console.log("thumbRect", thumbRect);
+
+      // 能滑到的最右侧距离
+      const maxRight = processBarRect.width - thumbRect.width - 2;
+      // 能滑到的最左侧距离
+      const minLeft = 2;
+
+      const maxWidth = maxRight - minLeft;
+
+      let isDragging = false;
+
+      // 更新 进度条
+      function updateProcess(event) {
+        const processBarRect = processBar.getBoundingClientRect();
+
+        // 计算移动的差值
+        const offsetX = event.clientX - processBarRect.left;
+
+        // 限制移动的范围
+        const realOffsetX = Math.max(minLeft, Math.min(maxRight, offsetX));
+
+        console.log("realOffsetX", realOffsetX);
+
+        // 计算移动的百分比
+        const offsetPercent = Math.round(
+          ((realOffsetX - minLeft) / maxWidth) * 100,
+        );
+
+        // 进行移动 和 赋值
+        thumb.style.left = `${realOffsetX}px`;
+        processText.innerText = `${offsetPercent}`;
+      }
+
+      // 全局的 鼠标移动事件
+      function onMouseMove(event) {
+        if (isDragging) {
+          throttle(updateProcess, 50)(event);
+        }
+      }
+
+      // 全局的 鼠标放下事件
+      function onMouseUp() {
+        if (isDragging) {
+          isDragging = false;
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+        }
+      }
+
+      // 滑块的鼠标按下事件
+      thumb.addEventListener("mousedown", function (event) {
+        isDragging = true;
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      });
+
+      // 进度条点击事件
+      processBar.addEventListener("click", function (event) {
+        updateProcess(event);
+      });
+    });
+  </script>
+</html>

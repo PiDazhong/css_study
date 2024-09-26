@@ -1,0 +1,60 @@
+@use 'sass:math';
+
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+$wrapperSize: 500px;
+$imgSize: 100px;
+$imgNum: 5;
+
+.wrapper {
+  width: $wrapperSize;
+  height: $wrapperSize;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+  border-radius: 50%;
+
+  animation: rotate 15s linear infinite;
+
+  .item {
+    position: absolute;
+    width: $imgSize;
+    height: $imgSize;
+    border-radius: 50%;
+    left: math.div($wrapperSize, 2) - math.div($imgSize, 2);
+    top: math.div(-$imgSize, 2);
+
+    transform-origin: 50% math.div($wrapperSize, 2) + math.div($imgSize, 2);
+
+    @for $i from 1 through $imgNum {
+      &:nth-child(#{$i}) {
+        $deg: #{math.div(360, $imgNum) * ($i - 1)}deg;
+        transform: rotate(#{$deg});
+
+        img {
+          --initDeg: #{$deg};
+          transform: rotate(#{-$deg});
+          animation: rotate 15s linear infinite reverse;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(calc(0deg - var(--initDeg, 0deg)));
+    }
+    to {
+      transform: rotate(calc(360deg - var(--initDeg, 0deg)));
+    }
+  }
+}

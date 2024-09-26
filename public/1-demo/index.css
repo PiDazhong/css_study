@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}

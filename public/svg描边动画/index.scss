@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  color: #fff;
+
+  svg {
+    width: 100px;
+    height: 100px;
+    margin: 50px;
+
+    .path {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1px;
+      stroke-dasharray: var(--length);
+      stroke-dashoffset: var(--length);
+      animation: paint 3s ease-in-out infinite;
+    }
+
+    @keyframes paint {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}

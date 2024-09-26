@@ -1,0 +1,27 @@
+{
+  "name": "online-css-study",
+  "version": "1.0.0",
+  "description": "online-css-study",
+  "main": "server.js",
+  "scripts": {
+    "predev": "yarn csf",
+    "dev": "node server.mjs",
+    "cs": "node compile-scss.js",
+    "csf": "node compile-scss.js --force",
+    "prebuild": "yarn csf",
+    "build": "node postbuild.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "ssh2": "^1.15.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "jquery": "^3.7.1",
+    "sass": "^1.79.3"
+  }
+}
