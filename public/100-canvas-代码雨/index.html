@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>demo</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <canvas id="bg"></canvas>
+  </body>
+  <script>
+    // 获取 canvas 元素
+    const cvs = document.getElementById('bg');
+
+    // 设置 canvas 的宽高
+    cvs.width = window.innerWidth * devicePixelRatio;
+    cvs.height = window.innerHeight * devicePixelRatio;
+
+    // 获取 canvas 的 2d 上下文
+    const ctx = cvs.getContext('2d');
+
+    // 设置 字体 大小
+    const fontSize = 20 * devicePixelRatio;
+    // 设置 列宽
+    const columnWidth = fontSize;
+    // 设置 列数
+    const columnCount = Math.floor(cvs.width / columnWidth);
+    // 每一列下一个字符是第几个字符， 最开始都是从0开始的
+    const nextChar = new Array(columnCount).fill(0);
+
+    function draw() {
+      // 刷一次浆  这样实现逐渐变淡的效果
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+      for (let i = 0; i < columnCount; i++) {
+        // 画 第i列 的字符
+        const char = getRandomText();
+        ctx.fillStyle = getRandomColor();
+        ctx.font = `${fontSize}px "Roboto Mono"`;
+        const x = columnWidth * i;
+        const yIndex = nextChar[i];
+        const y = (yIndex + 1) * fontSize;
+        ctx.fillText(char, x, y);
+        // 更新下一个字符的位置  这里需要设置后续随机生成代码雨的列数，所以也要随机生成
+        if (y > cvs.height && Math.random() > 0.99) {
+          nextChar[i] = 0;
+        } else {
+          nextChar[i] = yIndex + 1;
+        }
+      }
+    }
+
+    // 启动
+    draw();
+    setInterval(() => {
+      draw();
+    }, 16.7);
+
+    // 生成 随机颜色
+    function getRandomColor() {
+      const fontColors = [
+        '#33B5E5',
+        '#00990C',
+        '#AA66CC',
+        '#99330C',
+        '#99CC00',
+        '#669900',
+        '#FFBB33',
+        '#FF8800',
+        '#FF4444',
+        '#CC0000',
+      ];
+      const index = Math.floor(Math.random() * fontColors.length);
+      return fontColors[index];
+    }
+
+    // 生成 随机文字
+    function getRandomText() {
+      const str = 'console.log("hello world")';
+      const index = Math.floor(Math.random() * str.length);
+      return str[index];
+    }
+  </script>
+</html>
