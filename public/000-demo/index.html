@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -8,7 +8,12 @@
   </head>
 
   <body>
-    <div class="wrapper">demo</div>
+    <div class="wrapper"></div>
   </body>
-  <script></script>
+  <script>
+    const wrapper = document.querySelector('.wrapper');
+    var parentWindow = window.parent;
+    wrapper.innerText = parentWindow['DEBUG_INFO'] || 'demo';
+    wrapper.style.fontSize = '16px';
+  </script>
 </html>

@@ -1,0 +1,140 @@
+@use 'sass:math';
+
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+$ballSize: 10px; // 小球大小
+$ballNum: 36; // 小球数量
+$round: 100px;
+$delay: 1500ms;
+$brand: #1890ff;
+
+.wrapper {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .dot-item {
+      width: $ballSize;
+      height: $ballSize;
+      margin-left: math.div(-$ballSize, 2);
+      margin-top: math.div(-$ballSize, 2);
+
+      background-color: transparent;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      perspective: 70px;
+      transform-style: preserve-3d;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      &::before {
+        background-color: rgba($brand, 0.3);
+        top: -100%;
+        animation: whiteMove #{$delay} infinite;
+      }
+
+      &::after {
+        background-color: $brand;
+        top: 100%;
+        animation: blackMove #{$delay} infinite;
+      }
+
+      @for $i from 1 through $ballNum {
+        &:nth-child(#{$i}) {
+          transform: rotate(math.div($i * 360deg, $ballNum)) translateY($round);
+
+          &::before,
+          &::after {
+            animation-delay: -#{math.div($i, $ballNum) * 6 * $delay};
+          }
+        }
+      }
+
+      @keyframes whiteMove {
+        0% {
+          animation-timing-function: ease-in;
+        }
+        13% {
+          animation-timing-function: ease-in;
+          transform: translate3d(0, 50%, clac(#{$ballSize} / 2));
+        }
+        25% {
+          animation-timing-function: ease-out;
+          transform: translate3d(0, 100%, $ballSize);
+        }
+        38% {
+          animation-timing-function: ease-out;
+          transform: translate3d(0, 150%, clac(#{$ballSize} / 2));
+        }
+        50% {
+          animation-timing-function: ease-in;
+          transform: translate3d(0, 200%, 0);
+        }
+        62% {
+          animation-timing-function: ease-in;
+          transform: translate3d(0, 150%, -clac(#{$ballSize} / 2));
+        }
+        75% {
+          animation-timing-function: ease-out;
+          transform: translate3d(0, 100%, -#{$ballSize});
+        }
+      }
+
+      @keyframes blackMove {
+        0% {
+          animation-timing-function: ease-in;
+        }
+        13% {
+          transform: translate3d(0, -50%, -calc(#{$ballSize} / 2));
+          animation-timing-function: ease-in;
+        }
+        25% {
+          transform: translate3d(0, -100%, -$ballSize);
+          animation-timing-function: ease-out;
+        }
+        38% {
+          transform: translate3d(0, -150%, -calc(#{$ballSize} / 2));
+          animation-timing-function: ease-out;
+        }
+        50% {
+          transform: translate3d(0, -200%, 0);
+          animation-timing-function: ease-in;
+        }
+        62% {
+          transform: translate3d(0, -150%, calc(#{$ballSize} / 2));
+          animation-timing-function: ease-in;
+        }
+        75% {
+          transform: translate3d(0, -100%, $ballSize);
+          animation-timing-function: ease-out;
+        }
+      }
+    }
+  }
+}

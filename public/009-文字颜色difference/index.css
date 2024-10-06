@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(115deg, black 50%, white 50%);
+}
+.wrapper .text {
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  mix-blend-mode: difference;
+  animation: translation2 5s linear infinite;
+  position: relative;
+}
+.wrapper .text::before {
+  content: attr(data-content);
+  mix-blend-mode: difference;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform: translateX(-100%);
+  animation: translation1 5s linear infinite;
+  animation: none;
+}
+@keyframes translation1 {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes translation2 {
+  to {
+    transform: translateX(100%);
+  }
+}
