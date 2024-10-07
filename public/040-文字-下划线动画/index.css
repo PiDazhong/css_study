@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  padding: 200px;
+  cursor: pointer;
+}
+.wrapper span {
+  color: #fff;
+  font-size: 20px;
+  line-height: 2;
+  background: linear-gradient(to right, rgb(176.8473372781, 65.9668639053, 60.3526627219), rgb(33, 165, 52.8)) no-repeat;
+  background-position: right bottom;
+  background-size: 0 2px;
+  transition: background-size 0.5s ease-in-out;
+}
+.wrapper:hover span {
+  background-position: left bottom;
+  background-size: 100% 2px;
+}

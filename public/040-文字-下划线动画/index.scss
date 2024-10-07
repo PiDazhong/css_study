@@ -1,0 +1,33 @@
+@use 'sass:color';
+
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+.wrapper {
+  padding: 200px;
+  cursor: pointer;
+
+  span {
+    color: #fff;
+    font-size: 20px;
+    line-height: 2;
+
+    background: linear-gradient(
+        to right,
+        color.scale(#7e2f2b, $lightness: 20%),
+        color.scale(#146420, $lightness: 20%)
+      )
+      no-repeat;
+    background-position: right bottom;
+    background-size: 0 2px;
+
+    transition: background-size 0.5s ease-in-out;
+  }
+
+  &:hover span {
+    background-position: left bottom;
+    background-size: 100% 2px;
+  }
+}

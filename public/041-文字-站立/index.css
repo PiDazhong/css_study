@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 100px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+}
+.wrapper .text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 8vw;
+  font-weight: bold;
+  -webkit-text-stroke: 1px #fff;
+  position: relative;
+  z-index: 0;
+}
+.wrapper .text::before {
+  content: attr(data-content);
+  position: absolute;
+  color: #000;
+  transform: translate(-2.8vw, 1.1vw) scaleY(0.7) skew(45deg);
+  filter: blur(5px);
+  -webkit-mask-image: linear-gradient(transparent, #000);
+  z-index: -1;
+}
