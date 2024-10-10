@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>demo</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="btn1">点击直接渲染100000个数组</div>
+    <div class="btn2">点击分片渲染100000个数组</div>
+    <div class="btn3">点击清空</div>
+    <div class="wrapper"></div>
+  </body>
+  <script>
+    const btn1 = document.querySelector('.btn1');
+    const btn2 = document.querySelector('.btn2');
+    const btn3 = document.querySelector('.btn3');
+    const wrapper = document.querySelector('.wrapper');
+    const dates = new Array(100000).fill(0).map((__, i) => i + 1);
+
+    btn3.addEventListener('click', () => {
+      wrapper.innerHTML = '';
+    });
+
+    btn1.addEventListener('click', () => {
+      wrapper.innerHTML = '';
+      for (let val of dates) {
+        const div = document.createElement('div');
+        div.classList.add('item');
+        div.innerText = val;
+        wrapper.appendChild(div);
+      }
+    });
+
+    btn2.addEventListener('click', () => {
+      wrapper.innerHTML = '';
+
+      // 任务执行器
+      const taskHandler = (__, i) => {
+        const div = document.createElement('div');
+        div.classList.add('item');
+        div.innerText = i;
+        wrapper.appendChild(div);
+      };
+      // 调度器
+      browserPerformChunk(dates, taskHandler);
+    });
+
+    function performChunk(dates, taskHandler, schduler) {
+      if (typeof dates === 'number') {
+        dates = {
+          length: dates,
+        };
+      }
+      if (dates.length === 0) {
+        return;
+      }
+      let i = 0;
+      function _run() {
+        schduler((goOn) => {
+          while (goOn() && i < dates.length) {
+            taskHandler(dates[i], i);
+            i++;
+          }
+          // 分片完成 继续分配
+          _run();
+        });
+      }
+      // 启动
+      _run();
+    }
+
+    function browserPerformChunk(dates, taskHandler) {
+      const schduler = (task) => {
+        requestIdleCallback((idle) => {
+          task(() => idle.timeRemaining() > 0);
+        });
+      };
+      performChunk(dates, taskHandler, schduler);
+    }
+  </script>
+</html>

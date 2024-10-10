@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>demo</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <div class="inner">这是第 1 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 2 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 3 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 4 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 5 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 6 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 7 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 8 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 9 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 10 个卡片</div>
+      </div>
+      <div class="card">
+        <div class="inner">这是第 11 个卡片</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const wrapper = document.querySelector('.wrapper');
+    const cards = document.querySelectorAll('.card');
+
+    wrapper.onmousemove = (e) => {
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      }
+    };
+  </script>
+</html>
