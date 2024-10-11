@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>demo</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="btn1">点击进入全屏</div>
+      <div class="btn2">点击退出全屏</div>
+      <div class="btn3">点击获取当前全屏元素</div>
+      <div class="btn4">点击判断当前是否全屏</div>
+    </div>
+  </body>
+  <script>
+    const btn1 = document.querySelector('.btn1');
+    const btn2 = document.querySelector('.btn2');
+    const btn3 = document.querySelector('.btn3');
+    const btn4 = document.querySelector('.btn4');
+    const wrapper = document.querySelector('.wrapper');
+
+    btn1.addEventListener('click', () => {
+      enterFullScreen(wrapper);
+    });
+
+    btn2.addEventListener('click', () => {
+      exitFullScreen();
+    });
+
+    btn3.addEventListener('click', () => {
+      console.log(getFullScreenElement());
+    });
+
+    btn4.addEventListener('click', () => {
+      console.log(isFullScreen());
+    });
+
+    // 进入全屏
+    function enterFullScreen(ele) {
+      if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+      } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+      } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen();
+      } else if (ele.msRequestFullScreen) {
+        ele.msRequestFullScreen();
+      }
+    }
+
+    // 退出全屏
+    function exitFullScreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+
+    // 获取 当前处于全屏的元素
+    function getFullScreenElement() {
+      return (
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement ||
+        null
+      );
+    }
+
+    // 判断是否处于全屏状态
+    function isFullScreen() {
+      return !!getFullScreenElement();
+    }
+  </script>
+</html>

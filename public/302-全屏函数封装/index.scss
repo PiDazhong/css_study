@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background-color: #000;
+  width: 100vw;
+}
+
+.wrapper {
+  width: calc(100% - 400px);
+  height: calc(100vh - 400px);
+  margin: 200px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  color: #fff;
+
+  .btn1,
+  .btn2,
+  .btn3,
+  .btn4 {
+    width: 140px;
+    height: 40px;
+    color: #fff;
+    background-color: #1890ff;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 12px;
+  }
+}
