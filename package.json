@@ -9,7 +9,8 @@
     "cs": "node compile-scss.js",
     "csf": "node compile-scss.js --force",
     "prebuild": "yarn csf",
-    "build": "node postbuild.mjs"
+    "build": "node postbuild.mjs",
+    "watch:sass": "sass --watch public:public  --no-source-map"
   },
   "keywords": [],
   "author": "",
