@@ -10,13 +10,15 @@
     "csf": "node compile-scss.js --force",
     "prebuild": "yarn csf",
     "build": "node postbuild.mjs",
-    "watch:sass": "sass --watch public:public  --no-source-map"
+    "watch:sass": "sass --watch public:public  --no-source-map",
+    "dev:watch": "concurrently \"npm run dev\" \"npm run watch:sass\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "archiver": "^7.0.1",
+    "concurrently": "^9.1.0",
     "ssh2": "^1.15.0"
   },
   "dependencies": {
